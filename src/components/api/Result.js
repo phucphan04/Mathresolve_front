@@ -14,11 +14,31 @@ function Results({ tex }) {
         body: JSON.stringify({ latex_input: tex })
     }).then(res => {
         res.json().then(db => {
-            console.log(db);
-            setResult(db.result);
+            var result_api = "";
+
+            let valuesArray = Object.values(db.result);
+            let i = 1;
+            for (let value of valuesArray) {
+
+                if (typeof value == "number") {
+                    continue;
+                }
+                if (typeof value == "object") {
+                    let valuesArray1 = Object.values(value);
+                    for (let value of valuesArray1) {
+                        result_api = result_api + value + "\\" + "\\";
+                        i++;
+                    }
+                } else {
+                    result_api = result_api + value + "\\" + "\\";
+                    i++;
+                }
+            }
+            console.log(result_api);
+            setResult(result_api)
         })
     }).catch(err => {
-        console.log(err);
+
         console.log("test1");
     })
     let logicJS = (brd) => {
@@ -33,9 +53,14 @@ function Results({ tex }) {
                     mathmlSpacing: false,
                     displayIndent: '0',
                     paddingLeft: true,
-                    skipHtmlTags: [            //  HTML tags that won't be searched for math
+                    skipHtmlTags: [
                         '+'
-                    ]
+                    ],
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    processEscapes: true,
+                    tex: {
+                        packages: { '[+]': ['color'] },
+                    }
                 }}
             >
                 <div>

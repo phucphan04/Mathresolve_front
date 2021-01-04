@@ -4,9 +4,12 @@ import PageTitle from "../components/common/PageTitle";
 import MathJax from 'react-mathjax2'
 import Result from "../components/api/Result"
 import convertLatexToSpeakableText from 'mathlive';
+
 function Dathuc(smallStats) {
   var [result, setResult] = useState(0);
   var [input_latex, setInputLatex] = useState(0);
+
+
   return (
     <Container fluid className="main-content-container px-4">
       {/* Page Header */}
@@ -24,14 +27,11 @@ function Dathuc(smallStats) {
       <Button style={{
         marginTop: "10px"
       }} onClick={() => {
-        console.log(document.getElementById('formula').getValue("latex-expanded"));
-
         setInputLatex(document.getElementById('formula').getValue("latex"));
+        console.log(document.getElementById('formula').getValue("latex"))
       }} id="submit">Submit</Button>
-      <p style={{
-        display: "none"
-      }} id="trs">sss</p>
       <Result id="result" tex={input_latex}></Result>
+
     </Container>
   )
 };
