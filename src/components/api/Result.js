@@ -11,7 +11,7 @@ function Results({ tex }) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ latex_input: tex })
+        body: JSON.stringify({ input: tex , variable: "x"})
     }).then(res => {
         res.json().then(db => {
             var result_api = "";
@@ -67,20 +67,6 @@ function Results({ tex }) {
                     <MathJax.Node>{result}</MathJax.Node>
                 </div>
             </MathJax.Context>
-            <JXGBoard
-          logic={logicJS}
-          boardAttributes={{
-              axis: true,
-              boundingbox: [-12, 10, 12, -10],
-              showCopyright: false,
-              showReload: false,
-              showZoom: false,
-              showNavigation: false,
-            }}
-        //   style={{
-        //     border: "3px solid red"
-        //   }}
-        />
         </Col>
     )
 };
