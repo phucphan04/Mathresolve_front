@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Col, FormCheckbox } from "shards-react";
 import MathJax from 'react-mathjax2'
 
-import JXGBoard from 'jsxgraph-react-js'
-
 function Results({ tex }) {
     var [result, setResult] = useState("");
     fetch("http://127.0.0.1:8000/api/backend_handling", {
