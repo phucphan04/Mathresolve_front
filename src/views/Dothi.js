@@ -6,7 +6,7 @@ import latexToAST from 'mathlive';
 import Plot from "../components/api/Plot"
 function Dothi(smallStats) {
   var [result, setResult] = useState(0);
-  var [input_latex, setInputLatex] = useState("x^2-1");
+  var [input_latex, setInputLatex] = useState("");
   return (
     <Container fluid className="main-content-container px-4">
       {/* Page Header */}

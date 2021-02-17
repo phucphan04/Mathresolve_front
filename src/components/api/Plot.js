@@ -17,18 +17,43 @@ function Plot({ tex }) {
         body: raw,
         redirect: 'follow'
     };
+
     fetch("http://127.0.0.1:8000/api/plot_api", requestOptions)
         .then(res => {
             res.json().then(db => {
+                console.log(db.detail);
+                var result_api = "";
+                let valuesArray = Object.values(db.detail);
+                let i = 1;
+                for (let value of valuesArray) {
+
+                    if (typeof value == "number") {
+                        continue;
+                    }
+                    if (typeof value == "object") {
+                        let valuesArray1 = Object.values(value);
+
+                        for (let value of valuesArray1) {
+                            result_api = result_api + value + "\\" + "\\";
+                            i++;
+                        }
+                    } else {
+                        result_api = result_api + value + "\\" + "\\";
+                        i++;
+                    }
+                }
+                setResultDetail(result_api);
                 var x = "data:image/png;base64,";
-                console.log(x + db.result);
+                console.log(result_api);
+
                 setResult(db.result);
-                setResultDetail(db.detail)
             })
         }).catch(err => {
             console.log(err);
             console.log("test1");
         })
+
+
 
     return (
         <Col sm="12" md="4" className="mb-3">

@@ -11,11 +11,14 @@ function Results({ tex }) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ input: tex , variable: "x"})
+        body: JSON.stringify({
+            input: tex,
+            variable: "x"
+        })
     }).then(res => {
         res.json().then(db => {
-            var result_api = "";
 
+            var result_api = "";
             let valuesArray = Object.values(db.result);
             let i = 1;
             for (let value of valuesArray) {
@@ -25,7 +28,9 @@ function Results({ tex }) {
                 }
                 if (typeof value == "object") {
                     let valuesArray1 = Object.values(value);
+
                     for (let value of valuesArray1) {
+                        console.log(value);
                         result_api = result_api + value + "\\" + "\\";
                         i++;
                     }
@@ -42,9 +47,9 @@ function Results({ tex }) {
         console.log("test1");
     })
     let logicJS = (brd) => {
-        var c = brd.create('functiongraph', [function(x){ return x+1;}, -4, 4], { strokeColor: '#000000', strokeWidth: 3 });
+        var c = brd.create('functiongraph', [function (x) { return x + 1; }, -4, 4], { strokeColor: '#000000', strokeWidth: 3 });
         brd.unsuspendUpdate();
-      }
+    }
     return (
         <Col sm="12" md="4" className="mb-3">
             <MathJax.Context input='tex'
