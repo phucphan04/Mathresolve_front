@@ -9,7 +9,10 @@ function Plot({ tex }) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({ "input": tex });
+    var raw = JSON.stringify({
+        "input": tex,
+        "variable": "x",
+    });
 
     var requestOptions = {
         method: 'POST',

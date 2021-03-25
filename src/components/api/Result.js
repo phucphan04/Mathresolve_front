@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Col, FormCheckbox } from "shards-react";
 import MathJax from 'react-mathjax2'
 
-function Results({ tex }) {
+function Results(prop) {
+    console.log(prop.var);
     var [result, setResult] = useState("");
     fetch("http://127.0.0.1:8000/api/backend_handling", {
         method: 'POST',
@@ -10,8 +11,8 @@ function Results({ tex }) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            input: tex,
-            variable: "x"
+            input: prop.tex,
+            variable: prop.var
         })
     }).then(res => {
         res.json().then(db => {
@@ -28,7 +29,7 @@ function Results({ tex }) {
                     let valuesArray1 = Object.values(value);
 
                     for (let value of valuesArray1) {
-                        console.log(value);
+
                         result_api = result_api + value + "\\" + "\\";
                         i++;
                     }
@@ -37,7 +38,6 @@ function Results({ tex }) {
                     i++;
                 }
             }
-            console.log(result_api);
             setResult(result_api)
         })
     }).catch(err => {
