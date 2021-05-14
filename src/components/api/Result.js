@@ -5,14 +5,15 @@ import MathJax from 'react-mathjax2'
 function Results(prop) {
     console.log(prop.var);
     var [result, setResult] = useState("");
-    fetch("http://127.0.0.1:8000/api/backend_handling", {
+    fetch("http://127.0.0.1:8000/api/combine", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             input: prop.tex,
-            variable: prop.var
+            // variable: prop.var
+            variable: "x"
         })
     }).then(res => {
         res.json().then(db => {
