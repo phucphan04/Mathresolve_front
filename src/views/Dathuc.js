@@ -85,6 +85,16 @@ function duyetObject(obj) {
     if (obj.type == "variable") {
       return obj.name;
     }
+    else if(obj.type=="negative"){
+      
+      return duyetObject(obj.value);
+    }
+    else if( obj.type =="block"){
+      return duyetObject(obj.child);
+    }
+    else if(obj.type=="function"){
+      return duyetObject(obj.args[0]);
+    }
     else return "";
   }
   else {
@@ -102,9 +112,14 @@ function Dathuc(smallStats) {
 
   const handleClickOpen = () => {
     emails = [];
-    var test = document.getElementById('formula').getValue("latex");
+
+    //NOTE
+    var test = document.getElementById('formula').getValue("ascii-math");
+    console.log(test)
     if (test != "") {
+      console.log(parse(test))
       var test1 = duyetObject(parse(test));
+      
       var test2 = test1.split("");
       const uniqueSet = new Set(test2);
       const backToArray = [...uniqueSet];
